@@ -1,0 +1,108 @@
+// --- 1. INISIALISASI SAAT HALAMAN DIMUAT ---
+document.addEventListener("DOMContentLoaded", function() {
+    // Validasi Login
+    if (localStorage.getItem("isLoggedIn") !== "true") {
+        window.location.href = "login.html";
+        return;
+    }
+
+    // Tampilkan Nama dan Jabatan
+    const namaUser = localStorage.getItem("userNama");
+    const jabatanUser = localStorage.getItem("userJabatan");
+    document.getElementById("displayNama").innerText = namaUser;
+    document.getElementById("displayJabatan").innerText = jabatanUser;
+
+    // Tampilkan Tanggal
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    document.getElementById('dateDisplay').innerText = new Date().toLocaleDateString('id-ID', options);
+
+    // Ambil Lokasi
+    getGeolocation(); 
+});
+
+// --- 2. LOGIKA TOGGLE KAMERA (Baru) ---
+let currentStream = null;
+document.getElementById('toggleKamera').addEventListener('change', async function(e) {
+    const video = document.getElementById('video');
+    const statusText = document.getElementById('status');
+
+    if (e.target.checked) {
+        // Nyalakan kamera
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+            video.srcObject = stream;
+            currentStream = stream;
+            statusText.innerText = "Kamera aktif.";
+        } catch (err) {
+            console.error(err);
+            statusText.innerText = "Gagal mengakses kamera.";
+            e.target.checked = false; // Reset switch jika gagal
+        }
+    } else {
+        // Matikan kamera
+        if (currentStream) {
+            currentStream.getTracks().forEach(track => track.stop());
+            video.srcObject = null;
+            currentStream = null;
+            statusText.innerText = "Kamera dimatikan.";
+        }
+    }
+});
+
+// --- 3. LOGIKA PRESENSI ---
+document.getElementById('snap').addEventListener('click', function() {
+    const nama = localStorage.getItem("userNama");
+    const jabatan = localStorage.getItem("userJabatan");
+    const email = localStorage.getItem("userEmail");
+    const video = document.getElementById('video');
+    const toggleKamera = document.getElementById('toggleKamera');
+    
+    if (!email) { alert("Sesi berakhir!"); window.location.href = "login.html"; return; }
+
+    // VALIDASI WAJIB KAMERA
+    if (!toggleKamera.checked || !video.srcObject) {
+        alert("Wajib mengaktifkan kamera sebelum presensi!");
+        return;
+    }
+
+    // Ambil foto
+    const canvas = document.createElement('canvas');
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    canvas.getContext('2d').drawImage(video, 0, 0);
+    const fotoBase64 = canvas.toDataURL('image/jpeg', 0.5);
+
+    const formData = new FormData();
+    formData.append('action', 'absen');
+    formData.append('nama', nama);
+    formData.append('jabatan', jabatan);
+    formData.append('email', email);
+    formData.append('foto', fotoBase64);
+    formData.append('lokasi', window.userCoords);
+
+    const btn = document.getElementById('snap');
+    btn.disabled = true; btn.innerText = "Mengirim...";
+
+    fetch(scriptURL, { method: 'POST', body: formData })
+    .then(res => res.json())
+    .then(data => {
+        // Pop-up dari pesan server (berhasil atau sudah absen)
+        alert(data.message); 
+    })
+    .catch(() => alert("Terjadi kesalahan."))
+    .finally(() => { btn.disabled = false; btn.innerText = "Ambil Foto & Absen"; });
+});
+
+// --- 4. UTILS ---
+function confirmLogout() {
+    if (confirm("Yakin ingin logout?")) { localStorage.clear(); window.location.href = "login.html"; }
+}
+
+window.userCoords = "Lokasi tidak diizinkan";
+function getGeolocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((pos) => {
+            window.userCoords = `https://www.google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`;
+        });
+    }
+}

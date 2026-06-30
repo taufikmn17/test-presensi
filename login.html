@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>HRIS Login</title>
+    <link rel="stylesheet" href="assets/css/login.css">
+</head>
+<body>
+
+<div class="container">
+    <input type="checkbox" id="flip">
+    
+    <!-- SWITCH TOGGLE -->
+    <div class="switch">
+        <label for="flip">
+            <span>Login</span>
+            <div class="toggle"></div>
+            <span>Sign Up</span>
+        </label>
+    </div>
+    
+    <!-- CARD CONTROLLER -->
+    <div class="card">
+        <!-- LOGIN (FRONT) -->
+        <div class="front">
+            <h2>Login</h2>
+            <form id="loginForm">
+                <input type="hidden" name="action" value="login"> <!-- Penting -->
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <div style="margin-top: 10px; font-size: 12px;">
+                    <input type="checkbox" id="show-pass-login" onclick="togglePassword()" style="height: auto; width: auto; margin-right: 5px;">
+                    <label for="show-pass-login">Tampilkan Password</label>
+                </div>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+
+        <!-- SIGNUP (BACK) -->
+        <div class="back">
+            <h2>Sign Up</h2>
+            <form id="signupForm">
+                <input type="hidden" name="action" value="signup"> <!-- Penting -->
+                <input type="text" name="nama" placeholder="Nama" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <select name="jabatan" required>
+                    <option value="" disabled selected>Pilih Jabatan</option>
+                    <option value="manager">Manager</option>
+                    <option value="hrd">HRD</option>
+                    <option value="drafter">Drafter</option>
+                    <option value="akuntan">Akuntan</option>
+                    <option value="estimator">Estimator</option>
+                    <option value="administrasi">Administrasi</option>
+                </select>
+                <input type="password" name="password" placeholder="Password" required>
+                <div style="margin-top: 10px; font-size: 12px;">
+                    <input type="checkbox" id="show-pass-login" onclick="togglePassword()" style="height: auto; width: auto; margin-right: 5px;">
+                    <label for="show-pass-login">Tampilkan Password</label>
+                </div>
+                <button type="submit">Daftar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script>
+function togglePassword() {
+    // Cari semua input password di dalam form
+    const inputs = document.querySelectorAll('input[type="password"], input[type="text"]');
+    inputs.forEach(input => {
+        if (input.type === "password") {
+            input.type = "text";
+        } else if (input.type === "text" && input.placeholder.toLowerCase().includes("password")) {
+            input.type = "password";
+        }
+    });
+}
+</script>
+<script src="assets/js/login.js"></script>
+
+</body>
+</html>
