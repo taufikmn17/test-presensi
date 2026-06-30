@@ -90,8 +90,9 @@ document.getElementById('snap').addEventListener('click', function() {
         alert(data.message); 
     })
     .catch(() => alert("Terjadi kesalahan."))
-    .finally(() => { btn.disabled = false; btn.innerText = "Ambil Foto & Absen"; });
+    .finally(() => { btn.disabled = false; btn.innerText = "Ambil Foto"; });
 });
+
 
 // --- 4. UTILS ---
 function confirmLogout() {

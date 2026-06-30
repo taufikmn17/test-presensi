@@ -1,5 +1,5 @@
 
-const scriptURL = 'https://script.google.com/macros/s/AKfycbyZ9vGEInSMVq9E2WcVzYJQlQaveo7gyGqUyGDgUPwT1FhfqMwvVHdItEnWilAjrEax6A/exec'; 
+const scriptURL = 'https://script.google.com/macros/s/AKfycbzR_jebvkZ3sS8kXlGBA1ZQPoH6KG382KjUMwYrSR_Ev0RYFfodh8Zs6vjypbMxBe9K/exec'; 
 const form = document.querySelector('#signupForm');
 const btn = form.querySelector('button');
 

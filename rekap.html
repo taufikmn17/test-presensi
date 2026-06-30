@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rekap Presensi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .sidebar { background: linear-gradient(180deg, #4f46e5 0%, #3730a3 100%); }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans text-gray-900">
+    <div class="min-h-screen flex flex-col md:flex-row">
+        <!-- Sidebar -->
+        <aside class="sidebar w-full md:w-64 text-white p-6 md:min-h-screen flex flex-col">
+            <!-- Header & Nav -->
+            <div class="flex-grow">
+                <h1 class="text-2xl font-bold mb-10 flex flex-col gap-1">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="bg-white text-indigo-700 px-2 py-1 rounded">HRIS</span>
+                    </div>
+                    
+                    <!-- Urutan: Welcome, Nama, Jabatan -->
+                    <div class="leading-tight w-full overflow-hidden">
+                        <p class="text-xl font-bold text-white mb-1">Welcome</p> <!-- Welcome paling besar -->
+                        <p id="displayNama" class="text-base font-semibold uppercase truncate block"></p> <!-- h4 size -->
+                        <p id="displayJabatan" class="text-base font-medium text-indigo-200 uppercase truncate block"></p> <!-- h4 size -->
+                    </div>
+                </h1>
+                
+                <!-- Tambahkan mb-8 untuk memberi jarak bawah pada nav -->
+                <nav class="space-y-4 mb-8">
+                    <a href="dashboard.html" class="block p-3 bg-white/20 rounded-lg">Presensi</a>
+                    <a href="rekap.html" class="block p-3 bg-white/20 rounded-lg">Rekap</a>
+                </nav>
+            </div>
+
+            <!-- Tombol Logout -->
+            <button onclick="confirmLogout()" 
+                class="flex items-center justify-center gap-2 p-3 w-full bg-red-500 hover:bg-red-600 text-white font-medium rounded-lg transition-all duration-200 shadow-md hover:shadow-lg active:scale-95">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                </svg>
+                Logout
+            </button>
+        </aside>
+
+        <!-- Content -->
+        <main class="flex-1 p-8">
+            <h2 class="text-3xl font-bold mb-8">Laporan Kehadiran</h2>
+            
+            <section class="grid grid-cols-1 gap-6 mb-8 max-w-sm mx-auto">
+                <div class="bg-white p-6 rounded-3xl shadow-sm border text-center">
+                    <p class="text-gray-400 uppercase text-sm">Hadir</p>
+                    <h3 id="countHadir" class="text-4xl font-bold mt-2 animate-pulse">...</h3>
+                </div>
+                <div class="bg-white p-6 rounded-3xl shadow-sm border text-center">
+                    <p class="text-gray-400 uppercase text-sm">Terlambat</p>
+                    <h3 id="countTerlambat" class="text-4xl font-bold mt-2 animate-pulse">...</h3>
+                </div>
+                <div class="bg-white p-6 rounded-3xl shadow-sm border text-center">
+                    <p class="text-gray-400 uppercase text-sm">Alpha</p>
+                    <h3 id="countAlpha" class="text-4xl font-bold mt-2 animate-pulse">...</h3>
+                </div>
+            </section>
+
+            <div class="bg-white p-8 rounded-3xl shadow-sm border max-w-sm mx-auto">
+                <canvas id="myChart"></canvas>
+            </div>
+        </main>
+    </div>
+
+
+    <!-- Cukup panggil script rekap saja -->
+    <script src="assets/js/rekap.js"></script>
+
+    <script>
+        // Menampilkan Nama dan Jabatan di Sidebar tanpa perlu main.js
+        document.addEventListener("DOMContentLoaded", function() {
+            const namaUser = localStorage.getItem("userNama");
+            const jabatanUser = localStorage.getItem("userJabatan");
+            
+            if (namaUser) document.getElementById("displayNama").innerText = namaUser;
+            if (jabatanUser) document.getElementById("displayJabatan").innerText = jabatanUser;
+        });
+
+        // Fungsi Logout yang dipanggil tombol
+        function confirmLogout() {
+            if (confirm("Yakin ingin logout?")) { localStorage.clear(); window.location.href = "login.html"; }
+        }
+    </script>
+</body>
+</html>
