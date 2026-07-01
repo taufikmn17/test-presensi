@@ -1,8 +1,8 @@
 {
-    "name": "HRIS YI",
-    "short_name": "HRIS YI",
+    "name": "AMS SI",
+    "short_name": "AMS SI",
     "start_url": "index.html",
-    "display": "standalone",
+    "display": "browser",
     "background_color": "#ffffff",
     "theme_color": "#4f46e5",
     "icons": [
@@ -17,4 +17,4 @@
         "type": "image/png"
       }
     ]
-}
+  }
