@@ -61,10 +61,10 @@ loginForm.addEventListener('submit', e => {
     .then(data => {
         if (data.status === "success") {
             // --- TAMBAHKAN BAGIAN INI ---
-            localStorage.setItem("isLoggedIn", "true");
-            localStorage.setItem("userNama", data.nama); // Menyimpan nama dari respons Apps Script
-            localStorage.setItem("userJabatan", data.jabatan); // Simpan jabatan
-            localStorage.setItem("userEmail", data.email);     // Simpan email (tetap disimpan tapi tidak ditampilkan)
+            sessionStorage.setItem("isLoggedIn", "true");
+            sessionStorage.setItem("userNama", data.nama); // Menyimpan nama dari respons Apps Script
+            sessionStorage.setItem("userJabatan", data.jabatan); // Simpan jabatan
+            sessionStorage.setItem("userEmail", data.email);     // Simpan email (tetap disimpan tapi tidak ditampilkan)
             // ----------------------------
             
             showNotification(data.message, "success");
@@ -84,3 +84,33 @@ loginForm.addEventListener('submit', e => {
         btn.innerText = "Login";
     });
 });
+
+
+// --- FUNGSI: Menampilkan section reset password ---
+function showResetModal() {
+    document.getElementById('resetSection').style.display = 'block';
+    // Sembunyikan tombol login atau form utama jika perlu agar tidak membingungkan
+}
+
+// --- FUNGSI: Simulasi kirim OTP ---
+function sendOTP() {
+    const email = document.getElementById('resetEmail').value;
+    if (!email) return alert("Masukkan email terlebih dahulu!");
+    
+    // Di sini nanti Anda memanggil API ke Apps Script untuk kirim email
+    alert("Kode OTP telah dikirim ke: " + email);
+    
+    document.getElementById('stepEmail').style.display = 'none';
+    document.getElementById('stepOTP').style.display = 'block';
+}
+
+// --- FUNGSI: Verifikasi OTP ---
+function verifyOTP() {
+    const otp = document.getElementById('otpCode').value;
+    if (otp === "123456") { // Contoh validasi manual
+        alert("OTP Benar! Silahkan buat password baru.");
+        // Arahkan ke halaman reset password atau tampilkan input password baru
+    } else {
+        alert("Kode OTP salah!");
+    }
+}

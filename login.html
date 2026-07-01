@@ -18,7 +18,7 @@
         <label for="flip">
             <span>Login</span>
             <div class="toggle"></div>
-            <span>Sign Up</span>
+            <span>Register</span>
         </label>
     </div>
     
@@ -36,12 +36,17 @@
                     <label for="show-pass-login">Tampilkan Password</label>
                 </div>
                 <button type="submit">Login</button>
+                <div style="text-align: center; margin: 15px 0;">
+                    <a href="resetpassword.html" style="font-size: 12px; color: #4f46e5; text-decoration: none;">Lupa Password?</a>
+                </div>
             </form>
         </div>
 
+        
+
         <!-- SIGNUP (BACK) -->
         <div class="back">
-            <h2>Sign Up</h2>
+            <h2>Register</h2>
             <form id="signupForm">
                 <input type="hidden" name="action" value="signup"> <!-- Penting -->
                 <input type="text" name="nama" placeholder="Nama" required>
@@ -60,7 +65,7 @@
                     <input type="checkbox" id="show-pass-login" onclick="togglePassword()" style="height: auto; width: auto; margin-right: 5px;">
                     <label for="show-pass-login">Tampilkan Password</label>
                 </div>
-                <button type="submit">Daftar</button>
+                <button type="submit">Register</button>
             </form>
         </div>
     </div>

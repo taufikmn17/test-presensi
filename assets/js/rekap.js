@@ -2,6 +2,11 @@
 
 const scriptURL = 'https://script.google.com/macros/s/AKfycbzR_jebvkZ3sS8kXlGBA1ZQPoH6KG382KjUMwYrSR_Ev0RYFfodh8Zs6vjypbMxBe9K/exec';
 document.addEventListener("DOMContentLoaded", function() {
+    if (sessionStorage.getItem("isLoggedIn") !== "true") {
+        window.location.href = "login.html";
+        return; // Hentikan eksekusi jika tidak login
+    }
+
     // Jalankan jika elemen statistik (Hadir, Telat, Alpha) ada di halaman ini
     if (document.getElementById("countHadir") && document.getElementById("countTerlambat") && document.getElementById("countAlpha")) {
         fetchStats();

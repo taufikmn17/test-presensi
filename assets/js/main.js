@@ -1,14 +1,14 @@
 // --- 1. INISIALISASI SAAT HALAMAN DIMUAT ---
 document.addEventListener("DOMContentLoaded", function() {
     // Validasi Login
-    if (localStorage.getItem("isLoggedIn") !== "true") {
+    if (sessionStorage.getItem("isLoggedIn") !== "true") {
         window.location.href = "login.html";
         return;
     }
 
     // Tampilkan Nama dan Jabatan
-    const namaUser = localStorage.getItem("userNama");
-    const jabatanUser = localStorage.getItem("userJabatan");
+    const namaUser = sessionStorage.getItem("userNama");
+    const jabatanUser = sessionStorage.getItem("userJabatan");
     document.getElementById("displayNama").innerText = namaUser;
     document.getElementById("displayJabatan").innerText = jabatanUser;
 
@@ -105,7 +105,7 @@ document.getElementById('snap').addEventListener('click', function() {
 
 // --- 4. UTILS ---
 function confirmLogout() {
-    if (confirm("Yakin ingin logout?")) { localStorage.clear(); window.location.href = "login.html"; }
+    if (confirm("Yakin ingin logout?")) { sessionStorage.clear(); window.location.href = "login.html"; }
 }
 
 window.userCoords = "Lokasi tidak diizinkan";
