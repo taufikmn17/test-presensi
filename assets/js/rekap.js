@@ -1,3 +1,5 @@
+
+
 const scriptURL = 'https://script.google.com/macros/s/AKfycbzR_jebvkZ3sS8kXlGBA1ZQPoH6KG382KjUMwYrSR_Ev0RYFfodh8Zs6vjypbMxBe9K/exec';
 document.addEventListener("DOMContentLoaded", function() {
     // Jalankan jika elemen statistik (Hadir, Telat, Alpha) ada di halaman ini
@@ -42,7 +44,7 @@ function initChart(hadir, terlambat, alpha) {
     new Chart(ctx, {
         type: 'doughnut',
         data: {
-            labels: ['Hadir', 'Terlambat', 'Alpha'],
+            labels: ['Tepat Waktu', 'Terlambat', 'Alpha'],
             datasets: [{
                 data: [hadir, terlambat, alpha],
                 backgroundColor: ['#059669', '#fbbf24', '#dc2626'], // Hijau, Kuning, Merah

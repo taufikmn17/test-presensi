@@ -65,6 +65,9 @@ document.getElementById('snap').addEventListener('click', function() {
         return;
     }
 
+    // --- TAMBAHAN: PAUSE VIDEO SAAT TOMBOL DIKLIK ---
+    video.pause(); 
+
     // Ambil foto
     const canvas = document.createElement('canvas');
     canvas.width = video.videoWidth;
@@ -86,11 +89,15 @@ document.getElementById('snap').addEventListener('click', function() {
     fetch(scriptURL, { method: 'POST', body: formData })
     .then(res => res.json())
     .then(data => {
-        // Pop-up dari pesan server (berhasil atau sudah absen)
         alert(data.message); 
     })
     .catch(() => alert("Terjadi kesalahan."))
-    .finally(() => { btn.disabled = false; btn.innerText = "Ambil Foto"; });
+    .finally(() => { 
+        // --- TAMBAHAN: PLAY KEMBALI VIDEO SETELAH PROSES SELESAI ---
+        video.play(); 
+        btn.disabled = false; 
+        btn.innerText = "Ambil Foto"; 
+    });
 });
 
 
@@ -102,8 +109,15 @@ function confirmLogout() {
 window.userCoords = "Lokasi tidak diizinkan";
 function getGeolocation() {
     if (navigator.geolocation) {
+        // Menambahkan opsi enableHighAccuracy: true
         navigator.geolocation.getCurrentPosition((pos) => {
             window.userCoords = `https://www.google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`;
+        }, (err) => {
+            console.error("Gagal mendapatkan lokasi: ", err);
+        }, {
+            enableHighAccuracy: true, // Ini memaksa browser mencoba mendapatkan lokasi paling akurat
+            timeout: 10000,
+            maximumAge: 0
         });
     }
 }
