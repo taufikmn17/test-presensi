@@ -97,18 +97,21 @@
     <script src="assets/js/rekap.js"></script>
 
     <script>
-        // Menampilkan Nama dan Jabatan di Sidebar tanpa perlu main.js
+        // Menampilkan Nama dan Jabatan di Sidebar menggunakan sessionStorage
         document.addEventListener("DOMContentLoaded", function() {
-            const namaUser = localStorage.getItem("userNama");
-            const jabatanUser = localStorage.getItem("userJabatan");
+            const namaUser = sessionStorage.getItem("userNama");
+            const jabatanUser = sessionStorage.getItem("userJabatan");
             
             if (namaUser) document.getElementById("displayNama").innerText = namaUser;
             if (jabatanUser) document.getElementById("displayJabatan").innerText = jabatanUser;
         });
-
-        // Fungsi Logout yang dipanggil tombol
+    
+        // Fungsi Logout disesuaikan agar menghapus sessionStorage
         function confirmLogout() {
-            if (confirm("Yakin ingin logout?")) { localStorage.clear(); window.location.href = "login.html"; }
+            if (confirm("Yakin ingin logout?")) { 
+                sessionStorage.clear(); 
+                window.location.href = "login.html"; 
+            }
         }
     </script>
 </body>

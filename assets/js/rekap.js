@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function fetchStats() {
-    const email = localStorage.getItem("userEmail");
+    const email = sessionStorage.getItem("userEmail");
     const formData = new FormData();
     formData.append("action", "getStats");
     formData.append("email", email);

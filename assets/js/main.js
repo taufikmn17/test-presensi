@@ -51,9 +51,9 @@ document.getElementById('toggleKamera').addEventListener('change', async functio
 
 // --- 3. LOGIKA PRESENSI ---
 document.getElementById('snap').addEventListener('click', function() {
-    const nama = localStorage.getItem("userNama");
-    const jabatan = localStorage.getItem("userJabatan");
-    const email = localStorage.getItem("userEmail");
+    const nama = sessionStorage.getItem("userNama");
+    const jabatan = sessionStorage.getItem("userJabatan");
+    const email = sessionStorage.getItem("userEmail");
     const video = document.getElementById('video');
     const toggleKamera = document.getElementById('toggleKamera');
     
