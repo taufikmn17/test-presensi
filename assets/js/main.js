@@ -72,7 +72,9 @@ document.getElementById('snap').addEventListener('click', function() {
     const canvas = document.createElement('canvas');
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
-    canvas.getContext('2d').drawImage(video, 0, 0);
+    const ctx = canvas.getContext('2d');
+    ctx.scale(-1, 1); // Membalik horizontal
+    ctx.drawImage(video, -canvas.width, 0); // Menggambar dengan posisi yang disesuaikan
     const fotoBase64 = canvas.toDataURL('image/jpeg', 0.5);
 
     const formData = new FormData();
